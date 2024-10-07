@@ -345,4 +345,7 @@ func init() {
 
 	ignoreOpenFlags := config.AddBoolFlag("ignore-open-flags", true, "Ignore unsupported open flags (APPEND, WRONLY) by blobfuse when writeback caching is enabled.")
 	config.BindPFlag(compName+".ignore-open-flags", ignoreOpenFlags)
+
+	extraMountArgs := config.AddStringFlag("extra-mount-args", "", "Extra arguments to pass to the FUSE library when mounting blobfuse.")
+	config.BindPFlag(compName+".extra-mount-args", extraMountArgs)
 }

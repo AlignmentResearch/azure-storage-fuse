@@ -106,7 +106,7 @@ type LibfuseOptions struct {
 	MaxFuseThreads          uint32 `config:"max-fuse-threads" yaml:"max-fuse-threads,omitempty"`
 	DirectIO                bool   `config:"direct-io" yaml:"direct-io,omitempty"`
 	Umask                   uint32 `config:"umask" yaml:"umask,omitempty"`
-	extraMountArgs          string `config:"extra-mount-args" yaml:"extra-mount-args,omitempty"`
+	ExtraMountArgs          string `config:"extra-mount-args" yaml:"extra-mount-args,omitempty"`
 }
 
 const compName = "libfuse"
@@ -195,7 +195,7 @@ func (lf *Libfuse) Validate(opt *LibfuseOptions) error {
 	lf.ownerGID = opt.Gid
 	lf.ownerUID = opt.Uid
 	lf.umask = opt.Umask
-	lf.extraMountArgs = opt.extraMountArgs
+	lf.extraMountArgs = opt.ExtraMountArgs
 
 	if opt.allowOther {
 		lf.dirPermission = uint(common.DefaultAllowOtherPermissionBits)
@@ -304,8 +304,8 @@ func (lf *Libfuse) Configure(_ bool) error {
 		return fmt.Errorf("%s config error %s", lf.Name(), err.Error())
 	}
 
-	log.Info("Libfuse::Configure : read-only %t, allow-other %t, allow-root %t, default-perm %d, entry-timeout %d, attr-time %d, negative-timeout %d, ignore-open-flags %t, nonempty %t, direct_io %t, max-fuse-threads %d, fuse-trace %t, extension %s, disable-writeback-cache %t, dirPermission %v, mountPath %v, umask %v",
-		lf.readOnly, lf.allowOther, lf.allowRoot, lf.filePermission, lf.entryExpiration, lf.attributeExpiration, lf.negativeTimeout, lf.ignoreOpenFlags, lf.nonEmptyMount, lf.directIO, lf.maxFuseThreads, lf.traceEnable, lf.extensionPath, lf.disableWritebackCache, lf.dirPermission, lf.mountPath, lf.umask)
+	log.Info("Libfuse::Configure : read-only %t, allow-other %t, allow-root %t, default-perm %d, entry-timeout %d, attr-time %d, negative-timeout %d, ignore-open-flags %t, nonempty %t, direct_io %t, max-fuse-threads %d, fuse-trace %t, extension %s, disable-writeback-cache %t, dirPermission %v, mountPath %v, umask %v, extra-mount-args %v",
+		lf.readOnly, lf.allowOther, lf.allowRoot, lf.filePermission, lf.entryExpiration, lf.attributeExpiration, lf.negativeTimeout, lf.ignoreOpenFlags, lf.nonEmptyMount, lf.directIO, lf.maxFuseThreads, lf.traceEnable, lf.extensionPath, lf.disableWritebackCache, lf.dirPermission, lf.mountPath, lf.umask, lf.extraMountArgs)
 
 	return nil
 }
